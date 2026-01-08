@@ -1,3 +1,29 @@
+/**
+ * @fileOverview 该文件包含活动管理应用的主要逻辑，包括从API获取活动列表和处理用户注册。
+ * 
+ * @module app
+ * 
+ * @requires fetch
+ * 
+ * @function fetchActivities
+ * @description 从API获取活动列表，并将其显示在页面上。每个活动的详细信息包括名称、描述、时间表和可用名额。
+ * 
+ * @async
+ * @throws {Error} 如果获取活动失败，将在控制台输出错误信息，并在页面上显示错误消息。
+ * 
+ * @function signupForm.addEventListener
+ * @description 处理用户提交的注册表单。将用户的电子邮件和所选活动发送到API进行注册。
+ * 
+ * @async
+ * @param {Event} event - 表单提交事件。
+ * @throws {Error} 如果注册失败，将在控制台输出错误信息，并在页面上显示错误消息。
+ * 
+ * @global
+ * @const {HTMLElement} activitiesList - 显示活动列表的 HTML 元素。
+ * @const {HTMLElement} activitySelect - 用户选择活动的下拉菜单。
+ * @const {HTMLElement} signupForm - 用户注册的表单元素。
+ * @const {HTMLElement} messageDiv - 用于显示消息的 HTML 元素。
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const activitiesList = document.getElementById("activities-list");
   const activitySelect = document.getElementById("activity");
@@ -25,6 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <h5>Participants:</h5>
+          <ul>
+            ${details.participants.map(participant => `<li>${participant}</li>`).join('')}
+          </ul>
         `;
 
         activitiesList.appendChild(activityCard);
