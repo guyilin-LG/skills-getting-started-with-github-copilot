@@ -46,6 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
+        // Extract username from email (part before @)
+        const participantUsernames = details.participants.map(email => 
+          email.split('@')[0]
+        );
+
         activityCard.innerHTML = `
           <h4>${name}</h4>
           <p>${details.description}</p>
@@ -53,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
           <h5>Participants:</h5>
           <ul>
-            ${details.participants.map(participant => `<li>${participant}</li>`).join('')}
+            ${participantUsernames.map(username => `<li>${username}</li>`).join('')}
           </ul>
         `;
 
